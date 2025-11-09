@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing Fleet Manager</title>
+    <link href="~/LogoMark.png" rel="icon" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body{
+           margin: 0;
+           padding:0;
+           font-family:'poppins',sans-serif;
+           display: flex;
+           align-items: stretch
+        }
+        .logo{
+            width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        .logo img{
+            width: 80%;
+            margin: 0 auto;
+            display: block;
+        }
+        .sidebar{
+           height: 100vh;
+           width: 240px;
+           display: flex;
+           flex-direction: column;
+           background-color: #0097A7 ;
+           color: white;
+           padding: 20px;
+           padding-top: 30px;
+           padding-bottom: 20px;
+           box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+           position: fixed;
+           top: 0;
+           left: 0;
+        }
+        .sidebar a{
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover{
+            background-color: #007f8b;
+            border-radius: 5px;
+            padding-left: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:active{
+            background-color: #007f8b;
+            border-left: 4px solid #FFD54F;
+            font-weight: bold;
+        }
+        .logout{
+            margin-top: auto;
+            margin-bottom: 30px;
+            display: block;
+            text-align: left;
+        }
+        .container{
+            margin-left: 275px;
+            width: calc(100% - 275px);
+            background-color: #F5F7FA;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        main{
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/Logo.png" alt="Wing" class="logo">
+        </div>
+        <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i>Home</a>
+        <a asp-area="" asp-controller="WingFleet" asp-action="Users"><i class="fa-solid fa-users"></i>Users</a>
+        <a href="#"><i class="fa-solid fa-motorcycle"></i>Vehicles</a>
+        <a href="#"><i class="fa-solid fa-map-location-dot"></i>Zones</a>
+        <a href="#"><i class="fa-solid fa-screwdriver-wrench"></i>Faults</a>
+        <a href="#"><i class="fa-solid fa-gears"></i>Spare Parts</a>
+        <a href="#"><i class="fa-solid fa-list-check"></i>Tasks</a>
+        <a href="#"><i class="fa-solid fa-money-bill-wave"></i>Cash Records</a>
+        <a href="#"><i class="fa-solid fa-file"></i>File Records</a>
+        <a href="#"><i class="fa-solid fa-chart-line"></i>KPIs</a>
+        <a asp-area="" asp-controller="WingFleet" asp-action="Logout" class="logout"><i class="fa-solid fa-right-from-bracket"></i>Log out</a>
+    </div>
+    <div class="navbar">
+
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,138 @@
+﻿@model Wing_Fleet_Manager.Dtos.User.UserLoginDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/LogoMark.png" rel="icon" type="image/png" />
+    <title>Wing Fleet Manager</title>
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container{
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .leftsection{
+            width: 60%;
+            background-color: #00b8b5ed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-items: center;
+        }
+        .rightsection{
+            background-color: #00b8b5ed;
+            width: 45%;
+            height: 100vh;
+            display:flex;
+        }
+        .img{
+            height: 100%;
+            width: 80%;
+            margin-top: 70px;
+            margin-right: 50px;
+        }
+
+        .card{
+            background-color: #F5F7FA;
+            height: 60%;
+            width: 50%;
+            border-radius: 20px;
+            margin:30px 250px;
+        }
+        .logo{
+            height: 10%;
+            width: 40%;
+            background-image: url(/Logo.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin:0 300px;
+        }
+        .signinhead{
+            font-family: 'poopins', sans-serif;
+            font-size: 30px;
+            margin-top: 30px;
+            margin-left: 40px;
+            margin-bottom: 0px;
+        }
+        .signinform{
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .emailinput,.passwordinput{
+           height: 50px;
+           color: rgb(0, 0, 0);
+            font-family: 'poopins', sans-serif;
+            font-size: 20px;
+           border: white;
+           border-radius: 10px;
+           margin: 10px;
+           padding-left: 20px;
+        }
+        .signinbtn,.createnewuser{
+            height: 40px;
+            border-radius: 15px;
+            border: white;
+            background-color: #0097A7;
+            color: #F5F7FA;
+            font-family: 'poopins', sans-serif;
+            font-size: 17px;
+            margin: 10px 10px;
+        }
+        .signinbtn:hover,.createnewuser:hover{
+            background-color: #F5F7FA;
+            color: #0097A7;
+            border: 2px rgba(0, 0, 0, 0.429) solid;
+        }
+
+        .forgetpassword{
+            color: black;
+            margin-left: 240px ;
+            text-decoration: none;
+            font-family: 'poppins',sans-serif;
+        }
+
+        span{
+            color:red;
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="leftsection">
+            <div class="logo"></div>
+            <div class="card">
+                <h2 class="signinhead">Sign in</h2>
+                <form asp-action="Login" class="signinform" asp-controller="WingFleet" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Email" class="emailinput" placeholder="Email" autocomplete="off">
+                    <span asp-validation-for="Email"></span>
+                    <input asp-for="Password" type="password" class="passwordinput" placeholder="Password" autocomplete="off">
+                    <span asp-validation-for="Password"></span>
+                    <a href="#" class="forgetpassword">Forget Password ?</a>
+                    <button class="signinbtn" type="submit">Sign in</button>
+                    <button class="createnewuser" type="button">Create New User</button>
+                </form>
+            </div>
+        </div>
+        <div class="rightsection">
+            <img class="img" src="/Login2.jpeg" alt="Wing Fleet">
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
