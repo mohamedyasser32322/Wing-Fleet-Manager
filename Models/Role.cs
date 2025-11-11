@@ -9,6 +9,7 @@ namespace Wing_Fleet_Manager.Models
         public string Name { get; set; }
         [Required]
         public bool IsAdmin { get; set; }
+        public bool? IsDeleted { get; set; }
 
         public ICollection<User> Users { get; set; } = new List<User>();
     }
