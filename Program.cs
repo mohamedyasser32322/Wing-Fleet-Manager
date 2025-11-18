@@ -32,12 +32,14 @@ builder.Services.AddScoped<IFileRecordRepository, FileRecordRepository>();
 builder.Services.AddScoped<IFaultRepository, FaultRepository>();
 builder.Services.AddScoped<ICashRecordRepository, CashRecordRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IZoneService, ZoneService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
 
 // Cookie Auth
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/WingFleet/Login";
+        options.LoginPath = "/Auth/Login";
         options.AccessDeniedPath = "/Home/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.SlidingExpiration = true;

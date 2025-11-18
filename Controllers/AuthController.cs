@@ -7,10 +7,10 @@ using Wing_Fleet_Manager.Services.Interface;
 
 namespace Wing_Fleet_Manager.Controllers
 {
-    public class WingFleetController : Controller
+    public class AuthController : Controller
     {
         private readonly IUserService _userService;
-        public WingFleetController(IUserService userService)
+        public AuthController(IUserService userService)
         {
             _userService = userService;
         }
@@ -19,7 +19,7 @@ namespace Wing_Fleet_Manager.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -72,13 +72,8 @@ namespace Wing_Fleet_Manager.Controllers
         {
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login","WingFleet");
+            return RedirectToAction("Login", "Auth");
         }
 
-        public async Task<IActionResult> Users()
-        {
-            var users = await _userService.GetAllAsync();
-            return View(users);
-        }
     }
 }

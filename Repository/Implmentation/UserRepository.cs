@@ -53,6 +53,10 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
                 user.LastUpDatedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                throw new KeyNotFoundException($"User With Id #{id} Not Found");
+            }
         }
     }
 }

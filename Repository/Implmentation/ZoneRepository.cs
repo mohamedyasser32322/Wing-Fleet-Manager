@@ -23,6 +23,11 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
             return await _context.Zones.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Zone?> GetByNameAsync(string name)
+        {
+            return await _context.Zones.FirstOrDefaultAsync(z => z.Name.ToLower() == name.ToLower());
+        }
+
         public async Task AddAsync(Zone zone)
         {
             await _context.Zones.AddAsync(zone);
@@ -40,12 +45,20 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
             var zone = await _context.Zones.FindAsync(id);
             if (zone != null)
             {
-                _context.Zones.Remove(zone);
+                zone.IsDeleted = true;
+                zone.LastUpdatedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
             else { 
                 throw new KeyNotFoundException($"Zone With Id #{id} Not Found");
             }
+        }
+
+        public async Task<int> GetVehiclesCountAsync(int zoneId)
+        {
+            return await _context.Vehicles
+                .Where(v => v.ZoneId ==  zoneId)
+                .CountAsync();
         }
     }
 }

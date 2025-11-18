@@ -1,0 +1,148 @@
+﻿@model List<Wing_Fleet_Manager.Dtos.Zone.ZoneReadDto>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .heading {
+            display: flex;
+            flex-direction: row;
+            padding: 20px
+        }
+
+        .adduserbtn {
+            background-color: #0097A7;
+            color: white;
+            margin-left: auto;
+            height: 40px;
+            width: 10%;
+            border: none;
+            border-radius: 20px;
+            font-family: 'poppins',sans-serif;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .search {
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            border: 1px solid #d3d0d0;
+            padding-left: 20px;
+            font-family: 'poppins',sans-serif;
+            font-size: 17px;
+            color: gray;
+        }
+
+        .userstable {
+            margin-top: 20px;
+            box-shadow: 2px 2px #d3d0d0;
+            border-collapse: collapse;
+            border-radius: 10px;
+        }
+
+        .tablehead {
+            background-color: #e4e1e15c;
+            height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 10px;
+        }
+
+        tr {
+            height: 50px;
+        }
+
+        td, th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .edituser, .deleteuser {
+            height: 30px;
+            width: 50px;
+            border-radius: 10px;
+            font-family: 'poppins',sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            justify-content: center;
+            justify-items: center;
+            border: 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .deleteuser {
+            width: 55px;
+        }
+
+        tr:hover {
+            background-color: #e4e1e15c;
+        }
+
+        .edituser {
+            color: black;
+            background-color: #eec47670;
+            border: 1px solid orange;
+            margin-left: 20px;
+        }
+
+        .deleteuser {
+            color: black;
+            background-color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="pageheader">
+        <div class="heading">
+            <h2><i class="fa-solid fa-map-location-dot"></i> Zones Management</h2>
+            <button class="adduserbtn" href="#"><i class="fa-solid fa-plus"></i>Add User</button>
+        </div>
+        <input class="search" type="search" name="search" value="" placeholder="Search . . . " />
+    </section>
+    <section>
+        <table class="userstable">
+            <thead class="tablehead">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Spare Batteries</th>
+                    <th>Created At</th>
+                    <th>Last Updated At</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+            @foreach (var zone in Model)
+            {
+                <tr>
+                    <td class="td">@zone.Id</td>
+                    <td class="td">@zone.Name</td>
+                    <td class="td">@zone.City</td>
+                    <td class="td">@zone.SpareBatteries</td>
+                    <td class="td">@zone.CreatedAt.ToLocalTime()</td>
+                    <td class="td">@zone.LastUpdatedAt.ToLocalTime()</td>
+                    <td class="td">
+                        <button class="edituser">Edit</button>
+                        <button class="deleteuser">Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </section>
+</body>

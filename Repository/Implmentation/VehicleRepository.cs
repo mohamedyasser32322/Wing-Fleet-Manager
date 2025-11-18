@@ -23,6 +23,12 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
             return await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
         }
 
+        public async Task<Vehicle?> GetByQrAsync(string qr)
+        {
+            return await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Qr == qr);
+        }
+
         public async Task AddAsync(Vehicle vehicle)
         {
             await _context.Vehicles.AddAsync(vehicle);
@@ -40,7 +46,8 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
             var vehicle = await _context.Vehicles.FindAsync(id);
             if (vehicle != null)
             {
-                _context.Remove(vehicle);
+                vehicle.IsDeleted = true;
+                vehicle.LastUpdatedAt = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
             else

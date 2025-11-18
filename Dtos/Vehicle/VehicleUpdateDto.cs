@@ -5,6 +5,7 @@ namespace Wing_Fleet_Manager.Dtos.Vehicle
 {
     public class VehicleUpdateDto
     {
+        public int Id { get; set; }
         [StringLength(50, MinimumLength = 3)]
         public string? Qr { get; set; }
         public VehicleType? Type { get; set; }

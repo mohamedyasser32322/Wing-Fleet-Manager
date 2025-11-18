@@ -6,6 +6,7 @@ namespace Wing_Fleet_Manager.Repository.Interface
     {
         public Task<List<Vehicle>> GetAllAsync();
         public Task<Vehicle> GetByIdAsync(int id);
+        public Task<Vehicle> GetByQrAsync(string qr);
         public Task AddAsync(Vehicle vehicle);
         public Task UpdateAsync(Vehicle vehicle);
         public Task DeleteAsync(int id);
