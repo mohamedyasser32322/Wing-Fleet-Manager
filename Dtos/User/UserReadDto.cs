@@ -15,5 +15,6 @@ namespace Wing_Fleet_Manager.Dtos.User
         public DateTime CreatedAt { get; set; }
         public DateTime LastLoginAt { get; set; }
         public string RoleName { get; set; }
+        public int RoleId { get; set; }
     }
 }

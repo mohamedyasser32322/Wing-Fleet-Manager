@@ -2,6 +2,7 @@
 using Wing_Fleet_Manager.Data;
 using Wing_Fleet_Manager.Models;
 using Wing_Fleet_Manager.Repository.Interface;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Wing_Fleet_Manager.Repository.Implmentation
 {
@@ -15,7 +16,10 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
 
         public async Task<List<User>> GetAllAsync()
         {
-            return await _context.Users.Include(u => u.Role).ToListAsync();
+            return await _context.Users
+                .Where(u => !u.IsDeleted)
+                .Include(u => u.Role)
+                .ToListAsync();
         }
 
         public async Task<User?> GetByIdAsync(int id)
@@ -24,10 +28,18 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User?>GetByEmailAsync(string email)
         {
-            return await _context.Users.Include(u => u.Role)
+            return await _context.Users
+                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Email == email);
+        }
+        public async Task<List<User>> GetByNameAsync(string name)
+        {
+            return await _context.Users
+                    .Where(u => u.FullName != null &&
+                    EF.Functions.Like(u.FullName.ToLower(), $"%{name.ToLower()}%"))
+                .ToListAsync();
         }
 
         public async Task<User> AddAsync(User user)

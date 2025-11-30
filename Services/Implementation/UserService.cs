@@ -36,6 +36,19 @@ namespace Wing_Fleet_Manager.Services.Implementation
             }
         }
 
+        public async Task<List<UserReadDto>> GetByNameAsync(string name)
+        {
+            var result = await _userRepo.GetByNameAsync(name);
+            if(result.Any())
+            {
+                return _mapper.Map<List<UserReadDto>>(result);
+            }
+            else
+            {
+                throw new Exception($"No Results");
+            }
+        }
+
         public async Task<UserReadDto> AuthAsync(UserLoginDto login)
         {
             var user = await _userRepo.GetByEmailAsync(login.Email);

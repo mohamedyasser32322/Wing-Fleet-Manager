@@ -9,156 +9,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/LogoMark.png" rel="icon" type="image/png" />
+    <link href="/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="/LogoMark.png" rel="icon" type="image/png" />
     <title>Wing Fleet Manager</title>
-    <style>
-        body{
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .wingcontainer{
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-        .wingleftsection{
-            width: 60%;
-            background-color: #00b8b5ed;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            justify-items: center;
-        }
-        .wingrightsection{
-            background-color: #00b8b5ed;
-            width: 45%;
-            height: 100vh;
-            display:flex;
-        }
-        .img{
-            height: 100%;
-            width: 80%;
-            margin-top: 70px;
-            margin-right: 50px;
-        }
-
-        .wingcard{
-            background-color: #F5F7FA;
-            height: 60%;
-            width: 50%;
-            border-radius: 20px;
-            margin:30px 250px;
-        }
-        .winglogo{
-            height: 10%;
-            width: 40%;
-            background-image: url(/Logo.png);
-            background-size: contain;
-            background-repeat: no-repeat;
-            margin:0 300px;
-        }
-        .wingsigninhead{
-            font-family: 'poopins', sans-serif;
-            font-size: 30px;
-            margin-top: 30px;
-            margin-left: 40px;
-            margin-bottom: 0px;
-        }
-        .wingsigninform{
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .wingemailinput,.wingpasswordinput{
-           height: 50px;
-           color: rgb(0, 0, 0);
-            font-family: 'poopins', sans-serif;
-            font-size: 20px;
-           border: white;
-           border-radius: 10px;
-           margin: 10px;
-           padding-left: 20px;
-        }
-        .wingsigninbtn,.createnewuser{
-            height: 40px;
-            border-radius: 15px;
-            border: white;
-            background-color: #0097A7;
-            color: #F5F7FA;
-            font-family: 'poopins', sans-serif;
-            font-size: 17px;
-            margin: 10px 10px;
-        }
-        .signinbtn:hover,.createnewuser:hover{
-            background-color: #F5F7FA;
-            color: #0097A7;
-            border: 2px rgba(0, 0, 0, 0.429) solid;
-        }
-
-        .forgetpassword{
-            color: black;
-            margin-left: 240px ;
-            text-decoration: none;
-            font-family: 'poppins',sans-serif;
-        }
-
-        span{
-            color:red;
-            margin-left:20px;
-        }
-    </style>
 </head>
-<body>
-    <div class="wingcontainer">
-        <div class="wingleftsection">
-            <div class="winglogo"></div>
-            <div class="wingcard">
-                <h2 class="wingsigninhead">Sign in</h2>
-                <form asp-action="Login" class="wingsigninform" asp-controller="Auth" method="post">
-                    @Html.AntiForgeryToken()
-                    <input asp-for="Email" class="wingemailinput" placeholder="Email">
-                    <span asp-validation-for="Email"></span>
-                    <input asp-for="Password" type="password" class="wingpasswordinput" placeholder="Password" autocomplete="off">
-                    <span asp-validation-for="Password"></span>
-                    <a href="#" class="forgetpassword">Forget Password ?</a>
-                    <button class="wingsigninbtn" type="submit">Sign in</button>
-                    <button type="button" class="createnewuser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Create New User
-                    </button>
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New User</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <input class="modalfullname" type="text" placeholder="Full Name"/>
-                                    <input class="modalemail" type="email" placeholder="Email" />
-                                    <input class="modalnickname" type="text" placeholder="Nick Name" />
-                                    <input class="modalpassword" type="password" placeholder="Password" />
-                                    <input class="modalconfirmpassword" type="password" placeholder="Confirm Password" />
-                                    <input class="modalphone" type="number" placeholder="Phone"/>
-                                    <input type="file" />
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Create</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+<body style="background:linear-gradient(135deg,#00b8b5,#0097A7);" class="m-0 p-0">
+    <div class="container-fluid min-vh-100">
+        <div class="row min-vh-100 justify-content-center align-items-center">
+            <div class="col-10 col-md-4 text-center">
+
+                <div class="card p-5 border-3">
+                    <img src="/LogoMark.png" style="width:100px;" class="d-block mx-auto mb-3" />
+
+                    <h1 class="m-3">Wing Fleet Manager</h1>
+                    <h4 class="m-3">Sign in To Your Account</h4>
+
+                    <form asp-controller="Auth" asp-action="Login" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input class="form-control my-2 border-black" type="email" placeholder="Email" asp-for="Email" />
+                        <input class="form-control my-2 border-black" type="password" autocomplete="off" placeholder="Password" asp-for="Password" />
+                        <button class="btn btn-primary form-control my-3" type="submit">Sign in</button>
+                        <button class="btn btn-primary form-control my-0" type="submit">Create New User</button>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="wingrightsection">
-            <img class="img" src="/Login2.jpeg" alt="Wing Fleet">
         </div>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -25,7 +25,9 @@ namespace Wing_Fleet_Manager.Data
         {
             // User
             CreateMap<User, UserReadDto>()
-                .ForMember(dest => dest.RoleName, options => options.MapFrom(src => src.Role.Name));
+                .ForMember(dest => dest.RoleName, options => options.MapFrom(src => src.Role.Name))
+                .ForMember(dest => dest.RoleId, options => options.MapFrom(src => src.RoleId));
+
             CreateMap<UserCreateDto, User>()
                 .ForMember(dest => dest.HashPassword, opt => opt.MapFrom(src => PasswordHelper.PasswordHasher(src.Password)));
             CreateMap<UserUpdateDto, User>()
