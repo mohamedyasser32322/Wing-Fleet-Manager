@@ -73,6 +73,11 @@ namespace Wing_Fleet_Manager.Services.Implementation
             return _mapper.Map<UserReadDto>(user);
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await _userRepo.CountAsync();
+        }
+
         public async Task<UserReadDto> AddAsync(UserCreateDto userCreateDto)
         {
             var exictingUser = await _userRepo.GetByEmailAsync(userCreateDto.Email);

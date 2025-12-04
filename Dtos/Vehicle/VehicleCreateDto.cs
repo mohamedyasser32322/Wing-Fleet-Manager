@@ -17,6 +17,7 @@ namespace Wing_Fleet_Manager.Dtos.Vehicle
         public string Mac { get; set; }
         [Required]
         public bool IsActive { get; set; }
+        public int? ZoneId { get; set; }
         [Required]
         public VehicleStatus Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

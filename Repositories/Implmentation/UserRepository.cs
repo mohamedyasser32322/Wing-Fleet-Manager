@@ -42,6 +42,13 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
                 .ToListAsync();
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await _context.Users
+                .Where(u => !u.IsDeleted)
+                .CountAsync();
+        }
+
         public async Task<User> AddAsync(User user)
         {
             await _context.Users.AddAsync(user);

@@ -36,7 +36,7 @@ namespace Wing_Fleet_Manager.Models
         public bool IsActive { get; set; }
         [Required]
         public VehicleStatus Status { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }= false;
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
         public Zone Zone { get; set; }

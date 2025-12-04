@@ -35,6 +35,22 @@ namespace Wing_Fleet_Manager.Services.Implementation
             }
         }
 
+        public async Task<int> VehiclesCountByZoneId(int zoneId)
+        {
+            return await _zoneRepo.VehiclesCountByZoneId(zoneId);
+        }
+
+        public async Task<IEnumerable<ZoneEnum>> GetZones()
+        {
+            var zones = await _zoneRepo.GetAllAsync();
+            return _mapper.Map<IEnumerable<ZoneEnum>>(zones);
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _zoneRepo.CountAsync();
+        }
+
         public async Task<ZoneReadDto> AddAsync(ZoneCreateDto zoneCreateDto)
         {
             var existZone = await _zoneRepo.GetByNameAsync(zoneCreateDto.Name);
@@ -82,15 +98,5 @@ namespace Wing_Fleet_Manager.Services.Implementation
             }
         }
 
-        public async Task <int> GetZoneVehiclesCountAsync(int id)
-        {
-            var zone = await _zoneRepo.GetByIdAsync(id);
-            if(zone == null)
-            {
-                throw new KeyNotFoundException($"Zone With Id #{id} Not Found");
-            }
-
-            return await _zoneRepo.GetVehiclesCountAsync(id);
-        }
     }
 }

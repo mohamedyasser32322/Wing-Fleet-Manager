@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Wing_Fleet_Manager.Dtos.Vehicle;
+using Wing_Fleet_Manager.Dtos.Zone;
 using Wing_Fleet_Manager.Models;
 using Wing_Fleet_Manager.Repository.Interface;
 using Wing_Fleet_Manager.Services.Interface;
@@ -43,6 +44,13 @@ namespace Wing_Fleet_Manager.Services.Implementation
 
             return _mapper.Map<VehicleReadDto>(vehicle);
         }
+
+        public async Task<int> CountAsync()
+        {
+           return await _vehicleRepository.CountAsync();
+        }
+
+
 
         public async Task<VehicleReadDto> AddAsync(VehicleCreateDto vehicleCreateDto)
         {

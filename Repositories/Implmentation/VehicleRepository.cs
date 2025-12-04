@@ -15,13 +15,23 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
 
         public async Task<List<Vehicle>> GetAllAsync()
         {
-            return await _context.Vehicles.ToListAsync();
+            return await _context.Vehicles
+                .Where(v => !v.IsDeleted)
+                .ToListAsync();
         }
 
         public async Task<Vehicle?> GetByIdAsync(int id)
         {
             return await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await _context.Vehicles
+                .Where(v => !v.IsDeleted)
+                .CountAsync();
+        }
+
 
         public async Task<Vehicle?> GetByQrAsync(string qr)
         {

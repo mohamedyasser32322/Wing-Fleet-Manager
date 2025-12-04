@@ -45,6 +45,21 @@ namespace Wing_Fleet_Manager.Data
                 context.Users.Add(adminUser);
                 await context.SaveChangesAsync();
             }
+
+            if (!context.Zones.Any())
+            {
+                var newZone = new Zone
+                {
+                    Name = "Hadab Zone",
+                    City = "Damamm",
+                    SpareBatteries = 20,
+                    IsDeleted = false,
+                    CreatedAt = DateTime.Now
+                };
+
+                context.Zones.Add(newZone);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

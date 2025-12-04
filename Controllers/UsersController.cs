@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Wing_Fleet_Manager.Dtos.User;
 using Wing_Fleet_Manager.Services.Interface;
 using Wing_Fleet_Manager.ViewModel;
+using X.PagedList.Extensions;
 
 namespace Wing_Fleet_Manager.Controllers
 {
@@ -14,12 +15,19 @@ namespace Wing_Fleet_Manager.Controllers
             _userService = userService;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+
             var users = await _userService.GetAllAsync();
+            var usersPagedList = users.ToPagedList(pageNumber, pageSize);
+
+
             var vm = new UsersViewModel
             {
-                Users = users,
+                Users = usersPagedList,
                 CreateUser = new UserCreateDto(),
                 UpdateUser = new UserUpdateDto()
             };
@@ -30,14 +38,28 @@ namespace Wing_Fleet_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(UsersViewModel usersViewModel)
+        public async Task<IActionResult> Create(UserCreateDto userCreateDto)
         {
             if (!ModelState.IsValid)
             {
-                usersViewModel.Users = await _userService.GetAllAsync();
-                return View("Index",usersViewModel);
+                var users = await _userService.GetAllAsync();
+                int pageSize = 10;
+                int pageNumber = 1;
+
+                var usersPagedList = users.ToPagedList(pageNumber, pageSize);
+
+
+
+                var viewModel = new UsersViewModel
+                {
+                    Users = usersPagedList,
+                    CreateUser = userCreateDto,
+                    UpdateUser = new UserUpdateDto()
+                };
+
+                return View("Index",viewModel);
             }
-            await _userService.AddAsync(usersViewModel.CreateUser);
+            await _userService.AddAsync(userCreateDto);
             return RedirectToAction("Index");
         }
 

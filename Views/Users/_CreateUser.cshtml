@@ -1,0 +1,52 @@
+﻿@model Wing_Fleet_Manager.Dtos.User.UserCreateDto
+
+@*Create User Modal*@
+<div class="modal fade" id="createuser">
+    <div class="modal-dialog modal-lg  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Create New User</h4>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Users" method="post" id="createuserform">
+                    @Html.AntiForgeryToken()
+                    <div class="p-3">
+                        <input type="text" asp-for="FullName" class="form-control" placeholder="Full Name" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <input type="text" asp-for="NickName" class="form-control" placeholder="Nick Name" />
+                        <span asp-validation-for="NickName" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <input type="email" asp-for="Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <input type="number" asp-for="Phone" class="form-control" placeholder="Phone" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="p-3">
+                        <select asp-for="RoleId" class="form-control">
+                            <option value="1">Admin</option>
+                        </select>
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" form="createuserform">Create</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

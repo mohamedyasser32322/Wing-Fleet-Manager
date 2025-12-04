@@ -44,6 +44,7 @@ namespace Wing_Fleet_Manager.Data
                 .ForMember(dest => dest.Name, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Name)))
                 .ForMember(dest => dest.City, opt => opt.Condition(src => !string.IsNullOrEmpty(src.City)))
                 .ForMember(dest => dest.SpareBatteries, opt => opt.Condition(src => src.SpareBatteries.HasValue));
+            CreateMap<Zone, ZoneEnum>();
 
             // User >> Zone
             CreateMap<UserZone, UserZoneReadDto>();

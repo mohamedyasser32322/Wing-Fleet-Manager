@@ -12,6 +12,7 @@ namespace Wing_Fleet_Manager.Dtos.Vehicle
         public string Imei { get; set; }
         public string Mac { get; set; }
         public bool IsActive { get; set; }
+        public int? ZoneId { get; set; }
         public VehicleStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }

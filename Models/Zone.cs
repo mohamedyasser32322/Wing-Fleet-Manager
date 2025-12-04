@@ -11,7 +11,7 @@ namespace Wing_Fleet_Manager.Models
         public string City { get; set; }
         [Required,Range(0,int.MaxValue)]
         public int SpareBatteries { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime LastUpdatedAt { get; set; }
