@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Wing_Fleet_Manager.Models;
 using Wing_Fleet_Manager.Services.Interface;
 using Wing_Fleet_Manager.ViewModel;
+using X.PagedList.Extensions;
 
 namespace Wing_Fleet_Manager.Controllers
 {
@@ -27,14 +28,21 @@ namespace Wing_Fleet_Manager.Controllers
         }
 
         [Authorize]
-        public async Task <IActionResult> Index()
+        public async Task <IActionResult> Index(int? page)
         {
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+
+            var faults = await _faultService.GetAllAsync();
+            var FaultsPagedList = faults.ToPagedList(pageNumber, pageSize);
+
             var stats = new DashBoardViewModel
             {
                 TotalVehicles = await _vehicleService.CountAsync(),
                 TotalUsers = await _userService.CountAsync(),
                 TotalZones = await _zoneService.CountAsync(),
                 TotalFaults = await _faultService.CountAsync(),
+                Faults = FaultsPagedList
             };
             return View(stats);
         }

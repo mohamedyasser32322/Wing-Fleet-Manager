@@ -1,61 +1,97 @@
 ﻿@model Wing_Fleet_Manager.ViewModel.DashBoardViewModel
 <div class="container-fluid">
-    <div class="row m-5 justify-content-center align-items-center text-center">
+    <div class="row m-4 justify-content-center align-items-center text-center">
         <h1>Wing Fleet Manager</h1>
     </div>
-    <div class="row g-3">
+    <div class="row g-4 justify-content-between">
         <div class="col-12 col-lg-3">
-            <div class="bg-primary text-white d-flex justify-content-between align-items-center p-2" style="border-radius:15px; height:130px">
-                <div class="p-3">
-                    <i class="fa-solid fa-motorcycle fa-3x p-2"></i>
-                </div>
-                <div class="d-flex flex-column px-3 text-end">
-                    <span>Total Vehicles</span>
-                    <h2>@Model.TotalVehicles</h2>
-                    <small>All Fleet</small>
-                </div>
+            <div class="d-flex flex-column justify-content-between align-items-center p-4 shadow-lg bg-white" style="border-radius:25px; height:185px;">
+                <i class="fa-solid fa-user fa-3x py-1"></i>
+                <h5>Total Users</h5>
+                <h3>@Model.TotalUsers</h3>
             </div>
         </div>
-
         <div class="col-12 col-lg-3">
-            <div class="bg-success text-white d-flex justify-content-between align-items-center p-2" style="border-radius:15px; height:130px">
-                <div class="p-3">
-                    <i class="fa-solid fa-users fa-3x p-2"></i>
-                </div>
-                <div class="d-flex flex-column px-3 text-end">
-                    <span>Total Users</span>
-                    <h2>@Model.TotalUsers</h2>
-                    <small>All Users</small>
-                </div>
-            </div>
-            
-        </div>
-
-        <div class="col-12 col-lg-3">
-            <div class=" text-white d-flex justify-content-between align-items-center p-2" style="border-radius:15px; height:130px; background-color:#fd7e14">
-                <div class="p-3">
-                    <i class="fa-solid fa-map-location-dot fa-3x p-2"></i>
-                </div>
-                <div class="d-flex flex-column px-3 text-end">
-                    <span>Total Zones</span>
-                    <h2>@Model.TotalZones</h2>
-                    <small>All Fleet</small>
-                </div>
+            <div class="d-flex flex-column justify-content-between align-items-center p-4 shadow-lg bg-white" style="border-radius:25px; height:185px;">
+                <i class="fa-solid fa-motorcycle fa-3x py-1"></i>
+                <h5>Total Vehicles</h5>
+                <h3>@Model.TotalVehicles</h3>
             </div>
         </div>
-
         <div class="col-12 col-lg-3">
-            <div class="text-white d-flex justify-content-between align-items-center p-2" style="border-radius:15px; height:130px; background-color:#6f42c1;">
-                <div class="p-3">
-                    <i class="fa-solid fa-screwdriver-wrench fa-3x p-2"></i>
+            <div class="d-flex flex-column justify-content-between align-items-center p-4 shadow-lg bg-white" style="border-radius:25px; height:185px;">
+                <i class="fa-solid fa-map-marker-alt fa-3x py-1"></i>
+                <h5>Total Zones</h5>
+                <h3>@Model.TotalZones</h3>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="d-flex flex-column justify-content-between align-items-center p-4 shadow-lg bg-white" style="border-radius:25px; height:185px;">
+                <i class="fa-solid fa-exclamation-triangle fa-3x py-1"></i>
+                <h5>Total Faults</h5>
+                <h3>@Model.TotalFaults</h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row my-4">
+        <div class="col-12 col-lg-12">
+            <div class="d-flex flex-column p-4 shadow-lg bg-white" style="border-radius:25px; height:380px;">
+                <div class="mx-4 justify-content-start">
+                    <h2><i class="fa-solid fa-exclamation-triangle m-2  "></i>Faults</h2>
                 </div>
-                <div class="d-flex flex-column px-3 text-end">
-                    <span>Total Faults</span>
-                    <h2>@Model.TotalFaults</h2>
-                    <small>All Fleet</small>
+                <div>
+                    <table class="table table-striped table-hover align-middle my-3 text-center">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Vehicle</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Created At</th>
+                                <th>Priority</th>
+                                <th>Solved ?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var fault in Model.Faults)
+                            {
+                                <tr>
+                                    <td>@fault.SerialNumber</td>
+                                    <td>@fault.VehicleQr</td>
+                                    <td>@fault.Title</td>
+                                    <td>@fault.Type</td>
+                                    <td>@fault.CreatedAt.ToShortDateString()</td>
+                                    <td>
+                                        @if (fault.Priority == FaultPriority.Critical)
+                                        {
+                                            <span class="badge bg-danger">Critical</span>
+                                        }
+                                        else if (fault.Priority == FaultPriority.High)
+                                        {
+                                            <span class="badge bg-warning">High</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">Normal</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (fault.IsSolved == true)
+                                        {
+                                            <span class="badge bg-success">Solved</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">In Progress</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
