@@ -1,0 +1,340 @@
+﻿@model Wing_Fleet_Manager.ViewModel.FaultsViewModel
+
+
+@* Page Layout *@
+<div class="container-fluid">
+    <div class="row mt-3 d-flex justify-content-between align-items-center g-3">
+        @* Page Header *@
+        <div class="col-12 col-lg-4">
+            <h2><i class="fa-solid fa-screwdriver-wrench my-3" style="margin-right:10px"></i> Faults Management</h2>
+        </div>
+        <div class="col-12 col-lg-1 mt-2 text-end">
+            <button class="btn btn-primary" style="background-color:#0097A7; border-color:#0097A7" data-bs-toggle="modal" data-bs-target="#createFault"><i class="fa-solid fa-plus"></i></button>
+        </div>
+    </div>
+
+    @*Faults Table*@
+    <div class="row">
+        @{
+            int index = 1;
+        }
+        <table class="table table-striped table-hover align-middle my-3 text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Serial Number</th>
+                    <th>Vehicle</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Priority</th>
+                    <th>Solved ?</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fault in Model.Faults)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>@fault.SerialNumber</td>
+                        <td>@fault.VehicleQr</td>
+                        <td>@fault.Title</td>
+                        <td>@fault.Type</td>
+                        <td>
+                            @if (fault.Priority == FaultPriority.Critical)
+                            {
+                                <span class="badge bg-danger">Critical</span>
+                            }
+                            else if (fault.Priority == FaultPriority.High)
+                            {
+                                <span class="badge bg-warning">High</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info">Normal</span>
+                            }
+                        </td>
+                        <td>
+                            @if (fault.IsSolved == true)
+                            {
+                                <span class="badge bg-success">Solved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">In Progress</span>
+                            }
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#readfault_@fault.Id">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#updatefault_@fault.Id">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deletefault_@fault.Id">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @*Read Fault Modal*@
+    @foreach (var fault in Model.Faults)
+    {
+        <div class="modal fade" id="readfault_@fault.Id">
+            <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Read Fault Info</h4>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center align-content-center my-3">
+                                <div class="col-12 col-lg-6">
+                                    <table class="table table-striped table-hover text-center">
+                                        <tr>
+                                            <td>Fault Serial Number</td>
+                                            <td>@fault.SerialNumber</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fault Title</td>
+                                            <td>@fault.Title</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fault Type</td>
+                                            <td>@fault.Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Priority</td>
+                                            <td>
+                                                @if (fault.Priority == FaultPriority.Critical)
+                                                {
+                                                    <span class="badge bg-danger">Critical</span>
+                                                }
+                                                else if (fault.Priority == FaultPriority.High)
+                                                {
+                                                    <span class="badge bg-warning">High</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-info">Normal</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Solved ?</td>
+                                            <td>
+                                                @if (fault.IsSolved == true)
+                                                {
+                                                    <span class="badge bg-success">Solved</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">In Progress</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fault Description </td>
+                                            <td>@fault.Description</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created At</td>
+                                            <td>@fault.CreatedAt</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Solved At</td>
+                                            <td>@fault.SolvedAt</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <img class="h-75 w-75" alt="Fault Img" src="/fault.png"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @*Create Fault Modal*@
+    <div class="modal fade" id="createFault">
+        <div class="modal-dialog modal-lg  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Create New Fault</h4>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Create" asp-controller="Faults" method="post" id="createFaultform">
+                        @Html.AntiForgeryToken()
+                        <div class="p-3">
+                            <input type="text" asp-for="faultCreateDto.Title" class="form-control" placeholder="Fault Title" />
+                            <span asp-validation-for="faultCreateDto.Title" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" asp-for="faultCreateDto.Description" class="form-control" placeholder="Description" />
+                            <span asp-validation-for="faultCreateDto.Description" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <select class="form-control" asp-for="faultCreateDto.Type"
+                                    asp-items="Html.GetEnumSelectList<FaultType>()">
+                            </select>
+                        </div>
+                        <div class="p-3">
+                            <select class="form-control" asp-for="faultCreateDto.Priority"
+                                    asp-items="Html.GetEnumSelectList<FaultPriority>()">
+                            </select>
+                        </div>
+                        <div class="p-3">
+                            <select class="form-control" asp-for="faultCreateDto.ZoneId">
+                                <option value="">Select Zone</option>
+                                @if (Model != null)
+                                {
+                                    @foreach (var zone in Model.ZonesEnum)
+                                    {
+                                        <option value="@zone.Id">@zone.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="p-3">
+                            <select class="form-control" asp-for="faultCreateDto.VehicleId">
+                                <option value="">Select Vehicle</option>
+                                @if (Model != null)
+                                {
+                                    @foreach (var vehicle in Model.VehiclesEnum)
+                                    {
+                                        <option value="@vehicle.Id">@vehicle.Qr</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="p-3">
+                            <select class="form-control" asp-for="faultCreateDto.CreatedById">
+                                <option value="">Select User</option>
+                                @if (Model != null)
+                                {
+                                    @foreach (var user in Model.UsersEnum)
+                                    {
+                                        <option value="@user.Id">@user.FullName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                      
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" form="createFaultform">Create</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Update Fault Modal*@
+    @foreach (var fault in Model.Faults)
+    {
+        <div class="modal fade" id="updatefault_@fault.Id">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Update Fault</h4>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-action="Update" asp-controller="Faults" id="updateForm_@fault.Id">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="Id" value="@fault.Id" />
+                            <div class="px-3">
+                                <label>Title</label>
+                                <input class="form-control" name="Title" value="@fault.Title" type="text" />
+                            </div>
+                            <div class="px-3 pt-2">
+                                <label>Description</label>
+                                <input class="form-control" name="Description" value="@fault.Description" type="text" />
+                            </div>
+                            <div class="px-3 pt-2 ">
+                                <label>Type</label>
+                                <select class="form-control" name="Type" asp-for="@fault.Type"
+                                        asp-items="Html.GetEnumSelectList<FaultType>()">
+                                </select>
+                            </div>
+                            <div class="px-3 pt-2 ">
+                                <label>Priority</label>
+                                <select class="form-control" name="Type" asp-for="@fault.Priority"
+                                        asp-items="Html.GetEnumSelectList<FaultPriority>()">
+                                </select>
+                            </div>
+                            <div class="px-3 pt-2">
+                                <input class="mt-1" type="checkbox" name="IsSolved" value="true" @(fault.IsSolved ? "checked" : "") />
+                                <label>Solved ?</label>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-primary btn-sm" type="submit">Update</button>
+                                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @*Delete Zone Modal*@
+    @foreach (var fault in Model.Faults)
+    {
+        <div class="modal fade" id="deletefault_@fault.Id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Delete Fault</h4>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Do you want to remove this Fault ?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form asp-action="Delete" asp-controller="Faults" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@fault.Id" />
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*Pagination*@
+    <div class="row mt-2 d-flex justify-content-end fixed-bottom">
+        <div class="col-lg-2">
+            @Html.PagedListPager(
+            Model.Faults,
+                        page => Url.Action("Index", new { page = page }),
+                        new PagedListRenderOptions
+                        {
+                            LiElementClasses = new[] { "page-item" },
+                            PageClasses = new[] { "page-link" },
+                        }
+                        )
+        </div>
+    </div>
+
+</div>

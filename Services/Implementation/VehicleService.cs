@@ -45,6 +45,12 @@ namespace Wing_Fleet_Manager.Services.Implementation
             return _mapper.Map<VehicleReadDto>(vehicle);
         }
 
+        public async Task<IEnumerable<VehicleEnum>> GetVehicles()
+        {
+            var vehicles = await _vehicleRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<VehicleEnum>>(vehicles);
+        }
+
         public async Task<int> CountAsync()
         {
            return await _vehicleRepository.CountAsync();

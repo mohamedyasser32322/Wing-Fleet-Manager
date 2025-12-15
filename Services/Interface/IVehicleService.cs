@@ -7,6 +7,7 @@ namespace Wing_Fleet_Manager.Services.Interface
         Task<List<VehicleReadDto>> GetAllAsync();
         Task<VehicleReadDto> GetByIdAsync(int id);
         Task<VehicleReadDto> GetByQrAsync(string qr);
+        Task<IEnumerable<VehicleEnum>> GetVehicles();
         Task<int> CountAsync();
         Task<VehicleReadDto> AddAsync(VehicleCreateDto vehicleCreateDto);
         Task<VehicleReadDto> UpdateAsync(VehicleUpdateDto vehicleUpdateDto);

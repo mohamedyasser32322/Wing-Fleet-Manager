@@ -5,5 +5,7 @@ namespace Wing_Fleet_Manager.Models
         public string? RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string? ErrorMessage { get; set; }
+        public string? StackTrace { get; set; }
     }
 }

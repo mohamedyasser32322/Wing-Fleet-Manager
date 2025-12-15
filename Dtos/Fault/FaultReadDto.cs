@@ -13,5 +13,8 @@ namespace Wing_Fleet_Manager.Dtos.Fault
         public FaultPriority Priority { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime SolvedAt { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsSolved {  get; set; }
+        public string VehicleQr {  get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
         {
             return await _context.Vehicles
                 .Where(v => !v.IsDeleted)
+                .Include(v => v.Faults)
                 .ToListAsync();
         }
 

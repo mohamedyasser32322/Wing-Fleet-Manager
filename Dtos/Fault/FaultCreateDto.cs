@@ -5,8 +5,6 @@ namespace Wing_Fleet_Manager.Dtos.Fault
 {
     public class FaultCreateDto
     {
-        [Required, Range(0, int.MaxValue)]
-        public int SerialNumber { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
         [Required, StringLength(1000)]
@@ -15,5 +13,11 @@ namespace Wing_Fleet_Manager.Dtos.Fault
         public FaultType Type { get; set; }
         [Required]
         public FaultPriority Priority { get; set; }
+        [Required]
+        public int VehicleId { get; set; }
+        [Required]
+        public int ZoneId { get; set; }
+        [Required]
+        public int CreatedById { get; set; }
     }
 }

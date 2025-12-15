@@ -19,8 +19,8 @@ namespace Wing_Fleet_Manager.Models
     public class Fault
     {
         public int Id { get; set; }
-        [Required,Range(0,int.MaxValue)]
-        public int SerialNumber { get; set; }
+        [Required, Range(0, int.MaxValue)]
+        public int SerialNumber { get; set; } = 0000000;
         [Required,StringLength(100)]
         public string Title { get; set; }
         [Required,StringLength(1000)]
@@ -29,7 +29,8 @@ namespace Wing_Fleet_Manager.Models
         public FaultType Type { get; set; }
         [Required]
         public FaultPriority Priority { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsSolved { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime SolvedAt { get; set; }
         public Vehicle Vehicle { get; set; }

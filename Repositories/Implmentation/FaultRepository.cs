@@ -15,12 +15,30 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
 
         public async Task<List<Fault>> GetAllAsync()
         {
-            return await _context.Faults.ToListAsync();
+            return await _context.Faults
+                .Include(f => f.Vehicle)
+                .Where(f => !f.IsDeleted)
+                .ToListAsync();
+                
         }
 
         public async Task<Fault?> GetByIdAsync(int id)
         {
             return await _context.Faults.FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<int> GetLastSerialAsync()
+        {
+            return await _context.Faults
+                .OrderByDescending(f => f.SerialNumber)
+                .Select(f => f.SerialNumber)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<int> CountAsync()
+        {
+            return await _context.Faults
+                .Where(f => !f.IsDeleted)
+                .CountAsync();
         }
 
         public async Task AddAsync(Fault fault)
@@ -40,7 +58,8 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
             var Fault = await _context.Faults.FindAsync(id);
             if (Fault != null)
             {
-                _context.Faults.Remove(Fault);
+                Fault.IsDeleted = true;
+                Fault.SolvedAt = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
             else

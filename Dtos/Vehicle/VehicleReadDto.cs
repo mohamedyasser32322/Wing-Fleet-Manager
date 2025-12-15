@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Wing_Fleet_Manager.Dtos.Fault;
 using Wing_Fleet_Manager.Models;
 
 namespace Wing_Fleet_Manager.Dtos.Vehicle
@@ -16,5 +17,6 @@ namespace Wing_Fleet_Manager.Dtos.Vehicle
         public VehicleStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
+        public List<FaultReadDto> Faults { get; set; }
     }
 }

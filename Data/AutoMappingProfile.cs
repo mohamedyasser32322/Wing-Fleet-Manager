@@ -36,7 +36,7 @@ namespace Wing_Fleet_Manager.Data
                 .ForMember(dest => dest.NickName, opt => opt.Condition(src => !string.IsNullOrEmpty(src.NickName)))
                 .ForMember(dest => dest.Phone, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Phone)))
                 .ForMember(dest => dest.ImageUrl, opt => opt.Condition(src => !string.IsNullOrEmpty(src.ImageUrl)));
-            
+            CreateMap<User, UserEnum>();
             // Zone
             CreateMap<Zone, ZoneReadDto>();
             CreateMap<ZoneCreateDto, Zone>();
@@ -50,7 +50,8 @@ namespace Wing_Fleet_Manager.Data
             CreateMap<UserZone, UserZoneReadDto>();
 
             // Vehicle
-            CreateMap<Vehicle, VehicleReadDto>();
+            CreateMap<Vehicle, VehicleReadDto>()
+                .ForMember(dest => dest.Faults,opt => opt.MapFrom(src => src.Faults));
             CreateMap<VehicleCreateDto,Vehicle>();
             CreateMap<VehicleUpdateDto, Vehicle>()
                 .ForMember(dest => dest.Qr, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Qr)))
@@ -60,9 +61,11 @@ namespace Wing_Fleet_Manager.Data
                 .ForMember(dest => dest.Mac, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Mac)))
                 .ForMember(dest => dest.IsActive, opt => opt.Condition(src => src.IsActive.HasValue))
                 .ForMember(dest => dest.Status, opt => opt.Condition(src => src.Status.HasValue));
+            CreateMap<Vehicle, VehicleEnum>();
 
             // Fault
-            CreateMap<Fault, FaultReadDto>();
+            CreateMap<Fault, FaultReadDto>()
+                .ForMember(dest => dest.VehicleQr, opt => opt.MapFrom(src => src.Vehicle.Qr));
             CreateMap<FaultCreateDto,Fault>();
             CreateMap<FaultUpdateDto, Fault>()
                 .ForMember(dest => dest.Title, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Title)))

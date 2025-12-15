@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Wing_Fleet_Manager.Dtos.User;
+using Wing_Fleet_Manager.Dtos.Vehicle;
 using Wing_Fleet_Manager.Helpers;
 using Wing_Fleet_Manager.Models;
+using Wing_Fleet_Manager.Repository.Implmentation;
 using Wing_Fleet_Manager.Repository.Interface;
 using Wing_Fleet_Manager.Services.Interface;
 
@@ -36,18 +38,12 @@ namespace Wing_Fleet_Manager.Services.Implementation
             }
         }
 
-        public async Task<List<UserReadDto>> GetByNameAsync(string name)
+        public async Task<IEnumerable<UserEnum>> GetUsers()
         {
-            var result = await _userRepo.GetByNameAsync(name);
-            if(result.Any())
-            {
-                return _mapper.Map<List<UserReadDto>>(result);
-            }
-            else
-            {
-                throw new Exception($"No Results");
-            }
+            var users = await _userRepo.GetAllAsync();
+            return _mapper.Map<IEnumerable<UserEnum>>(users);
         }
+
 
         public async Task<UserReadDto> AuthAsync(UserLoginDto login)
         {

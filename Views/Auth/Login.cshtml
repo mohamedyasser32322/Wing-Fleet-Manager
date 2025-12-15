@@ -1,4 +1,4 @@
-﻿@model Wing_Fleet_Manager.Dtos.User.UserLoginDto
+﻿@* @model Wing_Fleet_Manager.ViewModel.UsersViewModel
 
 @{
     Layout = null;
@@ -9,35 +9,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="/LogoMark.png" rel="icon" type="image/png" />
-    <title>Wing Fleet Manager</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/LogoMark.png" rel="icon" type="image/png" />
+    <title>Sign In | Wing Fleet Manager</title>
 </head>
-<body style="background:linear-gradient(135deg,#00b8b5,#0097A7);" class="m-0 p-0">
-    <div class="container-fluid min-vh-100">
-        <div class="row min-vh-100 justify-content-center align-items-center">
-            <div class="col-10 col-md-4 text-center">
+<body>
+    <div class="container-fluid vh-100 overflow-hidden">
+        <div class="row min-vh-100">
+            <div class="col-12 col-lg-6" style="background-color:#00b8b5ed">
+                <div class="card w-50 h-50 p-3" style="margin-left:350px; margin-top:180px; border-radius:50px ; background-color:#ececec">
+                   <div class="d-flex flex-column">
+                        <h2 class="text-center" style="color:#00b8b5ed">Sign In</h2>
+                         <form asp-controller="Auth" asp-action="Login" method="post">
+                            @Html.AntiForgeryToken()
+                            <input class="form-control" asp-for="UserLoginDto.Email" type="email" placeholder="Email" />
+                            <span asp-validation-for="UserLoginDto.Email"></span>
+                            <input class="form-control" asp-for="UserLoginDto.Password" type="password" placeholder="Password" />
+                            <span asp-validation-for="UserLoginDto.Password"></span>
+                            <button class="form-control btn btn-primary" type="submit">Sign In</button>
+                            <button class="form-control btn btn-primary">Register</button>
+                        </form>
+                   </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 p-0">
+                <img class="w-100 h-100" src="/Login2.jpeg" style="object-fit: cover; object-position: center;" />
+            </div>
+            <div class="col-12 col-lg-2" style="background-color:#00b8b5ed"></div>
+        </div>
+    </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html> *@
 
-                <div class="card p-5 border-3">
-                    <img src="/LogoMark.png" style="width:100px;" class="d-block mx-auto mb-3" />
+@* <div class="container-fluid">
+    <form asp-controller="Auth" asp-action="Login" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger fw-bold"></div>
+        <input asp-for="UserLoginDto.Email" type="email" placeholder="Email" />
+        <span asp-validation-for="UserLoginDto.Email"></span>
+        <input asp-for="UserLoginDto.Password" type="password" placeholder="Password" />
+        <span asp-validation-for="UserLoginDto.Password"></span>
+        <button type="submit">Sign In</button>
+    </form>
+</div> 
+*@
 
-                    <h1 class="m-3">Wing Fleet Manager</h1>
-                    <h4 class="m-3">Sign in To Your Account</h4>
+@model Wing_Fleet_Manager.ViewModel.UsersViewModel
 
-                    <form asp-controller="Auth" asp-action="Login" method="post">
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Wing Fleet Manager</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/LogoMark.png" rel="icon" type="image/png" />
+</head>
+<body>
+
+    <div class="container-fluid vh-100 overflow-hidden p-0">
+        <div class="row h-100 g-0">
+            <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center" style="background-color:#00b8b5ed">
+
+                <div class="card shadow-lg border-0 rounded-5 p-4 bg-light" style="width: 450px; max-width: 90%;">
+                    <div class="card-body">
+                        <h2 class="text-center fw-bold mb-4" style="color:#00b8b5ed">Sign In</h2>
+
+                        <form asp-controller="Auth" asp-action="Login" method="post">
+                            @Html.AntiForgeryToken()
+
+                            <div class="mb-3">
+                                <label asp-for="UserLoginDto.Email" class="form-label text-secondary fw-bold">Email</label>
+                                <input class="form-control form-control-lg bg-white" asp-for="UserLoginDto.Email" type="email" placeholder="name@example.com" />
+                                <span asp-validation-for="UserLoginDto.Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="UserLoginDto.Password" class="form-label text-secondary fw-bold">Password</label>
+                                <input class="form-control form-control-lg bg-white" asp-for="UserLoginDto.Password" type="password" placeholder="********" />
+                                <span asp-validation-for="UserLoginDto.Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-lg text-white fw-bold" type="submit" style="background-color:#00b8b5ed">Sign In</button>
+                                <button class="btn btn-outline-secondary btn-lg fw-bold" data-bs-toggle="modal" data-bs-target="#createuser">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 p-0 d-none d-lg-block">
+                <img class="w-100 h-100" src="/Login2.jpeg" style="object-fit: cover;" />
+            </div>
+
+            <div class="col-lg-1 d-none d-lg-block" style="background-color:#00b8b5ed"></div>
+        </div>
+    </div>
+
+
+    @*Create User Modal*@
+    <div class="modal fade" id="createuser">
+        <div class="modal-dialog modal-lg  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Create New User</h4>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Create" asp-controller="Users" method="post" id="createuserform">
                         @Html.AntiForgeryToken()
-
-                        <input class="form-control my-2 border-black" type="email" placeholder="Email" asp-for="Email" />
-                        <input class="form-control my-2 border-black" type="password" autocomplete="off" placeholder="Password" asp-for="Password" />
-                        <button class="btn btn-primary form-control my-3" type="submit">Sign in</button>
-                        <button class="btn btn-primary form-control my-0" type="submit">Create New User</button>
+                        <div class="p-3">
+                            <input type="text" asp-for="CreateUser.FullName" class="form-control" placeholder="Full Name" />
+                            <span asp-validation-for="CreateUser.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="text" asp-for="CreateUser.NickName" class="form-control" placeholder="Nick Name" />
+                            <span asp-validation-for="CreateUser.NickName" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="email" asp-for="CreateUser.Email" class="form-control" placeholder="Email" />
+                            <span asp-validation-for="CreateUser.Email" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="password" asp-for="CreateUser.Password" class="form-control" placeholder="Password" />
+                            <span asp-validation-for="CreateUser.Password" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="password" asp-for="CreateUser.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                            <span asp-validation-for="CreateUser.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <input type="number" asp-for="CreateUser.Phone" class="form-control" placeholder="Phone" />
+                            <span asp-validation-for="CreateUser.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="p-3">
+                            <select asp-for="CreateUser.RoleId" class="form-control">
+                                <option value="1">Admin</option>
+                            </select>
+                            <span asp-validation-for="CreateUser.RoleId" class="text-danger"></span>
+                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" form="createuserform">Create</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

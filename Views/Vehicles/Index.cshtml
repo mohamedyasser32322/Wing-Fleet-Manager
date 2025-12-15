@@ -17,7 +17,7 @@
         @{
             int index = 1;
         }
-        <table class="table table-striped table-hover align-middle my-3">
+        <table class="table table-striped table-hover align-middle my-3 text-center">
             <thead>
                 <tr>
                     <th>#</th>
@@ -98,39 +98,141 @@
     @foreach (var vehicle in Model.Vehicles)
     {
         <div class="modal fade" id="readvehicle_@vehicle.Id">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-scrollable modal-fullscreen ">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4>Read Vehicle Info</h4>
                         <button class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body bg-secondary">
                         <div class="container-fluid">
-                            <div class="row justify-content-center align-content-center my-3">
-                                <div class="col-12 col-lg-12">
+                            <div class="row justify-content-center align-content-center my-3 text-center align-middle">
+                                <div class="col-12 col-lg-6">
+                                    <div class="card p-3" style="font-size:18px;">
+                                        <h2>
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            Vehicle Info</h2>
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <td class="fw-bold">Vehicle Qr</td>
+                                                <td>@vehicle.Qr</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Mac</td>
+                                                <td>@vehicle.Mac</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Imei</td>
+                                                <td>@vehicle.Imei</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Vehicle Type</td>
+                                                <td>@vehicle.Type</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Company</td>
+                                                <td>@vehicle.Company</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Zone</td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Is Active?</td>
+                                                @if (vehicle.IsActive)
+                                                {
+                                                    <td>Active</td>
+                                                }
+                                                else{
+                                                    <td>In Active</td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Status</td>
+                                                <td>@vehicle.Status</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Created At</td>
+                                                <td>@vehicle.CreatedAt.ToLocalTime()</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Last Updated At</td>
+                                                <td>@vehicle.LastUpdatedAt.ToLocalTime()</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @*Faults History*@
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-12 col-lg-10">
                                     <div class="card p-3">
-                                        <h4>Vehicle Qr : @vehicle.Qr</h4>
-                                        <h5>Mac : @vehicle.Mac</h5>
-                                        <h5>Imei : @vehicle.Imei</h5>
-                                        <h5>Vehicle Type : @vehicle.Type</h5>
-                                        <h5>Company : @vehicle.Company</h5>
-                                        @if(Model.ZonesEnum != null)
-                                        {
-                                            foreach(var zone in Model.ZonesEnum)
-                                            {
-                                                <h5>Zone : @zone.Name</h5>
-                                            }
-                                        }
-                                        <h5>Active? : @vehicle.IsActive</h5>
-                                        <h5>Status : @vehicle.Status</h5>
-                                        <h5>Created At : @vehicle.CreatedAt.ToLocalTime()</h5>
-                                        <h5>Last Updated At : @vehicle.LastUpdatedAt.ToLocalTime()</h5>
+                                            <h2 class="text-center">
+                                            <i class="fa-solid fa-clock-rotate-left"></i>
+                                                Faults History
+                                            </h2>
+                                           
+                                            <table class="table table-striped table-hover align-middle text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Serial Number</th>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                        <th>Type</th>
+                                                        <th>Priority</th>
+                                                        <th>Solved ?</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if (vehicle.Faults != null&& vehicle.Faults.Any())
+                                                {
+                                                    @foreach (var fault in vehicle.Faults.Where(f => !f.IsDeleted))
+                                                    {
+                                                        <tr>
+                                                            <td>@fault.SerialNumber</td>
+                                                            <td>@fault.Title</td>
+                                                            <td>@fault.Description</td>
+                                                            <td>@fault.Type</td>
+                                                            <td>
+                                                                @if (fault.Priority == FaultPriority.Critical)
+                                                                {
+                                                                    <span class="badge bg-danger">Critical</span>
+                                                                }
+                                                                else if (fault.Priority == FaultPriority.High)
+                                                                {
+                                                                    <span class="badge bg-warning">High</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge bg-info">Normal</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if(fault.IsSolved == true)
+                                                                {
+                                                                    <span class="badge bg-success">Solved</span>
+                                                                }
+                                                                else{
+                                                                    <span class="badge bg-danger">In Progress</span>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                }
+                                                </tbody>
+                                            </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer"></div>
+                                            
+                    <div class="modal-footer bg-secondary"></div>
                 </div>
             </div>
         </div>

@@ -34,13 +34,6 @@ namespace Wing_Fleet_Manager.Repository.Implmentation
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
-        public async Task<List<User>> GetByNameAsync(string name)
-        {
-            return await _context.Users
-                    .Where(u => u.FullName != null &&
-                    EF.Functions.Like(u.FullName.ToLower(), $"%{name.ToLower()}%"))
-                .ToListAsync();
-        }
 
         public async Task<int> CountAsync()
         {

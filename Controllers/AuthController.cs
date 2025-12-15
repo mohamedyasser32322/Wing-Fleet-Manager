@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Wing_Fleet_Manager.Dtos.User;
 using Wing_Fleet_Manager.Services.Interface;
+using Wing_Fleet_Manager.ViewModel;
 
 namespace Wing_Fleet_Manager.Controllers
 {
@@ -27,16 +28,16 @@ namespace Wing_Fleet_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(UserLoginDto loginDto)
+        public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
             if (!ModelState.IsValid)
             {
-                return View(loginDto);
+                return View(userLoginDto);
             }
 
             try
             {
-                var user = await _userService.AuthAsync(loginDto);
+                var user = await _userService.AuthAsync(userLoginDto);
 
                 var claims = new List<Claim>
                 {
@@ -63,7 +64,7 @@ namespace Wing_Fleet_Manager.Controllers
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(loginDto);
+                return View(userLoginDto);
             }
         }
 
