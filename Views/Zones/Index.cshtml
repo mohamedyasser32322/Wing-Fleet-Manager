@@ -193,17 +193,26 @@
 
 
     @*Pagination*@
-    <div class="row mt-2 d-flex justify-content-end fixed-bottom">
-        <div class="col-lg-2">
-            @Html.PagedListPager(
-            Model.Zones,
-                        page => Url.Action("Index", new { page = page }),
-                        new PagedListRenderOptions
-                        {
-                            LiElementClasses = new[] { "page-item" },
-                            PageClasses = new[] { "page-link" },
-                        }
-                        )
+    <div class="row d-flex justify-content-end fixed-bottom px-5 py-1">
+        <div class="col-12 d-flex justify-content-end">
+            <nav>
+                @Html.PagedListPager(
+                Model.Zones,
+                                page => Url.Action("Index", new { page }),
+                                new PagedListRenderOptions
+                                {
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+                                    MaximumPageNumbersToDisplay = 3,
+
+                                    LiElementClasses = new[] { "page-item" },
+                                    PageClasses = new[] { "page-link" }
+                                }
+                                )
+            </nav>
         </div>
     </div>
 </div>

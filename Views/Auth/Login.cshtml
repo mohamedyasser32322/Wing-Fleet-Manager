@@ -1,64 +1,4 @@
-﻿@* @model Wing_Fleet_Manager.ViewModel.UsersViewModel
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-    <link href="~/LogoMark.png" rel="icon" type="image/png" />
-    <title>Sign In | Wing Fleet Manager</title>
-</head>
-<body>
-    <div class="container-fluid vh-100 overflow-hidden">
-        <div class="row min-vh-100">
-            <div class="col-12 col-lg-6" style="background-color:#00b8b5ed">
-                <div class="card w-50 h-50 p-3" style="margin-left:350px; margin-top:180px; border-radius:50px ; background-color:#ececec">
-                   <div class="d-flex flex-column">
-                        <h2 class="text-center" style="color:#00b8b5ed">Sign In</h2>
-                         <form asp-controller="Auth" asp-action="Login" method="post">
-                            @Html.AntiForgeryToken()
-                            <input class="form-control" asp-for="UserLoginDto.Email" type="email" placeholder="Email" />
-                            <span asp-validation-for="UserLoginDto.Email"></span>
-                            <input class="form-control" asp-for="UserLoginDto.Password" type="password" placeholder="Password" />
-                            <span asp-validation-for="UserLoginDto.Password"></span>
-                            <button class="form-control btn btn-primary" type="submit">Sign In</button>
-                            <button class="form-control btn btn-primary">Register</button>
-                        </form>
-                   </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4 p-0">
-                <img class="w-100 h-100" src="/Login2.jpeg" style="object-fit: cover; object-position: center;" />
-            </div>
-            <div class="col-12 col-lg-2" style="background-color:#00b8b5ed"></div>
-        </div>
-    </div>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-</body>
-</html> *@
-
-@* <div class="container-fluid">
-    <form asp-controller="Auth" asp-action="Login" method="post">
-        @Html.AntiForgeryToken()
-        <div asp-validation-summary="All" class="text-danger fw-bold"></div>
-        <input asp-for="UserLoginDto.Email" type="email" placeholder="Email" />
-        <span asp-validation-for="UserLoginDto.Email"></span>
-        <input asp-for="UserLoginDto.Password" type="password" placeholder="Password" />
-        <span asp-validation-for="UserLoginDto.Password"></span>
-        <button type="submit">Sign In</button>
-    </form>
-</div> 
-*@
-
-@model Wing_Fleet_Manager.ViewModel.UsersViewModel
+﻿@model Wing_Fleet_Manager.ViewModel.UsersViewModel
 
 @{
     Layout = null;
@@ -77,11 +17,11 @@
 
     <div class="container-fluid vh-100 overflow-hidden p-0">
         <div class="row h-100 g-0">
-            <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center" style="background-color:#00b8b5ed">
+            <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center" style="background-color:#00b5b2ed">
 
                 <div class="card shadow-lg border-0 rounded-5 p-4 bg-light" style="width: 450px; max-width: 90%;">
                     <div class="card-body">
-                        <h2 class="text-center fw-bold mb-4" style="color:#00b8b5ed">Sign In</h2>
+                        <h2 class="text-center fw-bold mb-4" style="color:#00b5b2ed">Sign In</h2>
 
                         <form asp-controller="Auth" asp-action="Login" method="post">
                             @Html.AntiForgeryToken()
@@ -108,10 +48,10 @@
             </div>
 
             <div class="col-lg-4 p-0 d-none d-lg-block">
-                <img class="w-100 h-100" src="/Login2.jpeg" style="object-fit: cover;" />
+                <img class="w-100 h-100" src="/Login3.png" style="object-fit: cover;" />
             </div>
 
-            <div class="col-lg-1 d-none d-lg-block" style="background-color:#00b8b5ed"></div>
+            <div class="col-lg-1 d-none d-lg-block" style="background-color:#00b5b2ed"></div>
         </div>
     </div>
 

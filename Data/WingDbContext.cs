@@ -33,12 +33,6 @@ namespace Wing_Fleet_Manager.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.NickName)
-                .IsUnique();
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.Phone)
-                .IsUnique();
             modelBuilder.Entity<Role>()
                 .HasIndex(r => r.Name)
                 .IsUnique();

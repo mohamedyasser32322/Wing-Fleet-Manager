@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Wing_Fleet_Manager.Dtos.User;
 using Wing_Fleet_Manager.Services.Interface;
@@ -15,6 +16,7 @@ namespace Wing_Fleet_Manager.Controllers
             _userService = userService;
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index(int? page)
         {
             int pageSize = 10;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Wing_Fleet_Manager.Dtos.User;
 using Wing_Fleet_Manager.Dtos.Vehicle;
 using Wing_Fleet_Manager.Dtos.Zone;
@@ -20,6 +21,7 @@ namespace Wing_Fleet_Manager.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index(int? page)
         {
             int pageSize = 10;

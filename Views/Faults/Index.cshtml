@@ -6,7 +6,7 @@
     <div class="row mt-3 d-flex justify-content-between align-items-center g-3">
         @* Page Header *@
         <div class="col-12 col-lg-4">
-            <h2><i class="fa-solid fa-screwdriver-wrench my-3" style="margin-right:10px"></i> Faults Management</h2>
+            <h2><i class="fa-solid fa-exclamation-triangle my-3" style="margin-right:10px"></i> Faults Management</h2>
         </div>
         <div class="col-12 col-lg-1 mt-2 text-end">
             <button class="btn btn-primary" style="background-color:#0097A7; border-color:#0097A7" data-bs-toggle="modal" data-bs-target="#createFault"><i class="fa-solid fa-plus"></i></button>
@@ -323,17 +323,26 @@
     }
 
     @*Pagination*@
-    <div class="row mt-2 d-flex justify-content-end fixed-bottom">
-        <div class="col-lg-2">
-            @Html.PagedListPager(
-            Model.Faults,
-                        page => Url.Action("Index", new { page = page }),
-                        new PagedListRenderOptions
-                        {
-                            LiElementClasses = new[] { "page-item" },
-                            PageClasses = new[] { "page-link" },
-                        }
-                        )
+    <div class="row d-flex justify-content-end fixed-bottom px-5 py-1">
+        <div class="col-12 d-flex justify-content-end">
+            <nav>
+                @Html.PagedListPager(
+                Model.Faults,
+                                page => Url.Action("Index", new { page }),
+                                new PagedListRenderOptions
+                                {
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+                                    MaximumPageNumbersToDisplay = 3,
+
+                                    LiElementClasses = new[] { "page-item" },
+                                    PageClasses = new[] { "page-link" }
+                                }
+                                )
+            </nav>
         </div>
     </div>
 
